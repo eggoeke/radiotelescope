@@ -1,6 +1,8 @@
-from flask import render_template, flash, redirect
-from app import app
+from flask import render_template, Flask, flash, redirect, session, url_for, request, g
+from flask.ext.login import login_user, logout_user, current_user, login_required
+from app import app, db
 from .forms import LoginForm
+from .models import User
 
 @app.route('/')
 @app.route('/index')
@@ -9,6 +11,17 @@ def index():
     return render_template('index.html',
                            title='Home',
                            user=user)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'don' or request.form['password'] != 'nutmeg':
+            error = 'Invalid Credentials. Please try again.'
+        else:
+            return redirect(url_for('index'))
+    return render_template('login.html', error=error)
+
 @app.route('/calendar')
 def calendar():
 	date = {'date': 'Today'}
@@ -47,13 +60,4 @@ def profile():
                                	waitlist = waitlist,
 				reserved = reserved,
 				user = user)
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for OpenID="%s", remember_me=%s' %
-              (form.openid.data, str(form.remember_me.data)))
-        return redirect('/index')
-    return render_template('login.html', 
-                           title='Sign In',
-                           form=form)
+

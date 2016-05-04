@@ -3,16 +3,15 @@
 {% block content %}
 
 <center>  <h1>Sign In</h1>
-<form action="" method="post" name="login">
-      {{ form.hidden_tag() }}
-      <p>
-          Please enter your OpenID:<br>
-         <font color = "575757"> {{ form.openid(size=80) }}</font><br>
-      </p>
-          {% for error in form.openid.errors %}
-            <span>[{{ error }}]</span>
-          {% endfor %}<br>
-      <p>{{ form.remember_me }} Remember Me</p>
-      <p><font color = "#575757"><input type="submit" value="Sign In"></font></p>
-  </form></center>
+      <form action="" method="post">
+        <input type="text" placeholder="Username" name="username" value="{{
+          request.form.username }}">
+         <input type="password" placeholder="Password" name="password" value="{{
+          request.form.password }}">
+        <input class="btn btn-default" type="submit" value="Login">
+      </form>
+      {% if error %}
+        <p class="error"><strong>Error:</strong> {{ error }}
+      {% endif %}
+</center>
 {% endblock %}
