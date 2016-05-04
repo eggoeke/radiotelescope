@@ -1,0 +1,33 @@
+body {
+    background-color: #9B182E;
+}
+
+h1, h2, p, ol, li {
+    color: #FFFFFF;
+}
+
+a:link, a:visited {
+	color: #A5A5A5;
+	text-decoration: none;
+}
+
+a:hover, a:active {
+	text-decoration: strong;	
+	color: #878787;
+}
+div > h1{
+	margin-left: 4em;
+}
+ol, li {
+        margin-left: 5em;
+}
+div > a > h3{
+	margin-right: 50px;
+}
+
+p.blocktext{
+	margin-left: 10em;
+	margin-right: 10em;
+}
+
+

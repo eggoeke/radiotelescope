@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<center>
+	<h1>Hi, {{ user.nickname }}!</h1>
+
+{% if reserved %}
+	 <h2> Current Reserved Times </h2>
+    {% for reserved in reserved %}
+	<div> <p><b> {{ reserved.time }}</b> on the telescope <b> {{ reserved.telescope }} </b></p><br>
+    {% endfor %}
+{% else %}
+	<h2> No Current Reserved Times </h2>
+{% endif %}
+<i> <a href="/calendar"> Schedule a time? </a> </i>
+
+{% if waitlist %}
+	<h2> Current Waitlist</h2>
+    {% for waitlist in waitlist %}
+    <div><p>{{ waitlist.priority }} on the waitlist for <b>{{ waitlist.waitlist }}</b> on the telescope <b>{{ waitlist.telescope }}</b><br>
+       <i>currently held by {{waitlist.holder.nickname}} </i></p><br></div>
+    {% endfor %}
+{% else %}
+	<h2> Not Waiting on Anything </h2>
+{% endif %}
+</center>
+{% endblock %}

@@ -1,0 +1,31 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - GC Radio Telescope</title>
+    {% else %}
+    <title>Guilford College Radio Telescope</title>
+    {% endif %}
+	<link rel="stylesheet" href="/static/normalize.css">
+        <link rel="stylesheet" href="/static/guilfordize.css">
+  </head>
+  <body>
+	<div><br>
+	<img src="/static/logo.png" style= "width: 120px; height 120px" align="left">
+	<h2> Guilford College Radio Telescope
+	<br>
+	<a href="/index">Home</a>  |  <a href="/calendar">Schedule Time</a>  |  <a href = "/profile"> Profile</a></h2>
+	<a href="/login"><h3 align="right"> login</h3> </a>
+	</div>
+    <hr><br><br>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </body>
+</html>
