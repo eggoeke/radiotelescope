@@ -14,7 +14,11 @@
 	<h2> Guilford College Radio Telescope
 	<br>
 	<a href="/index">Home</a>  |  <a href="/calendar">Schedule Time</a>  |  <a href = "/profile"> Profile</a></h2>
+{% if current_user.get_id() != None  %}
+	<h3 align="right"> Welcome, {{ current_user.username }} |<a href="/logout"> logout</a> </h3>
+{% else %}
 	<a href="/login"><h3 align="right"> login</h3> </a>
+{% endif %}
 	</div>
     <hr><br><br>
     {% with messages = get_flashed_messages() %}

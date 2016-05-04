@@ -2,7 +2,7 @@ body {
     background-color: #9B182E;
 }
 
-h1, h2, p, ol, li {
+h1, h2, h3, p, ol, li {
     color: #FFFFFF;
 }
 
@@ -21,7 +21,7 @@ div > h1{
 ol, li {
         margin-left: 5em;
 }
-div > a > h3{
+div > a > h3, div > h3 > a {
 	margin-right: 50px;
 }
 
