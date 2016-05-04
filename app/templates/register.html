@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<center>  <h1>Register New User</h1>
+      <form action="/register" method="post">
+  {{ register_form.csrf_token }}
+   <font color = #FFFFFF> Username: </font>
+    {{ register_form.username(class='form-control') }}
+    <font color = #FFFFFF>Password:</font>
+    {{ register_form.password(class='form-control') }}
+
+   <button type="submit" class="btn btn-primary">Register</button>
+
+       	<br>
+    {% if register_form.username.errors %}
+       	<br>
+<font style="calibri"><p><i>
+	{% for error in register_form.username.errors %}
+	<li>{{ error }}</li>
+	{% endfor %}
+</font></p></i>
+    {% endif %}
+    {% if register_form.password.errors %}
+<font style="calibri"><p><i>
+        {% for error in register_form.password.errors %}
+       <li> {{ error }}<li>
+        {% endfor %}
+</font></p></i>
+    {% endif %}
+       	</form>
+</center>
+{% endblock %}

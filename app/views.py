@@ -1,8 +1,8 @@
 from flask import render_template, Flask, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, db
-from .forms import LoginForm
 from .models import User
+from .forms import RegisterForm, LoginForm
 
 @app.route('/')
 @app.route('/index')
@@ -12,15 +12,36 @@ def index():
                            title='Home',
                            user=user)
 
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(
+            username=form.username.data,
+            password=form.password.data,
+        )
+        db.session.add(user)
+        db.session.commit()
+
+        login_user(user)
+        return redirect(url_for('index'))
+
+    return render_template('register.html', current_user=current_user, register_form=form)
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != 'don' or request.form['password'] != 'nutmeg':
-            error = 'Invalid Credentials. Please try again.'
-        else:
-            return redirect(url_for('index'))
-    return render_template('login.html', error=error)
+    form = LoginForm()
+    if form.validate_on_submit():
+        login_user(form.user)
+        return redirect(url_for('index'))
+    return render_template('login.html', current_user=current_user, login_form=form)
 
 @app.route('/calendar')
 def calendar():

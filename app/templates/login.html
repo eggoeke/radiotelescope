@@ -3,15 +3,20 @@
 {% block content %}
 
 <center>  <h1>Sign In</h1>
-      <form action="" method="post">
-        <input type="text" placeholder="Username" name="username" value="{{
-          request.form.username }}">
-         <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
-        <input class="btn btn-default" type="submit" value="Login">
-      </form>
-      {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-      {% endif %}
+      <form action="/login" method="post">
+  {{ login_form.csrf_token }}	
+   <font color = #FFFFFF> Username: </font>
+    {{ login_form.username(class='form-control') }} 
+    <font color = #FFFFFF>Password:</font>
+    {{ login_form.password(class='form-control') }}
+
+   <button type="submit" class="btn btn-primary">Login</button>
+
+	<br>
+    {% if login_form.username.errors or login_form.password.errors %}
+	<br>
+	<font style="calibri"><p><i> Invalid login information </font></p></i>
+    {% endif %}
+	</form>
 </center>
 {% endblock %}
