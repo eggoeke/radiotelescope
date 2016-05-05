@@ -1,26 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
 <center>
-	<h1>Hi, {{ current_user.get_id() }}!</h1>
-       
-      <h2> Current Reserved Times </h2>
-{% if reserved %}
-    {% for reserved in reserved %}
-	<div> <p><b> {{ reserved.time }}</b> on the telescope <b> {{ reserved.telescope }} </b></p><br>
+   <br><br>
+     <h1> Current Reserved Time </h1>
+{% if reservedAshtarut or reservedAstarte %}
+    {% if reservedAshtarut %}
+        <h2>Reserved on Ashtarut</h2>
+        {% for r in reservedAshtarut.query.filter_by(user_id = current_user.get_id()) %}
+	    <p> {{ r.time.strftime("%B %Y: %A %d, at %I:00 %p") }}</p>
+        {% endfor %}
+    {% endif %}
+    {% if reservedAstarte %}
+     <h2>Reserved on Astarte</h2>
+    {% for r in reservedAstarte %}
+        {% if r.user_id == current_user.id %}
+           <p> {{ r.time.strftime("%B %Y: %A %d, at %I:00 %p") }}</p>
+        {% endif %}
     {% endfor %}
+    {% endif %}
 {% else %}
-	<i> No Current Reserved Times </i>
+   <i><p> No Current Reserved Times</p> </i><br>
 {% endif %}
-<i> <a href="/calendar"> Schedule a time? </a> </i>
-
+ <!--   <h2> Current Waitlist</h2>
 {% if waitlist %}
-	<h2> Current Waitlist</h2>
-    {% for waitlist in waitlist %}
-    <div><p>{{ waitlist.priority }} on the waitlist for <b>{{ waitlist.waitlist }}</b> on the telescope <b>{{ waitlist.telescope }}</b><br>
-       <i>currently held by {{waitlist.holder.nickname}} </i></p><br></div>
+    {% for w in waitlist %}
+        <div><p>{{ waitlist.priority }} on the waitlist for <b>{{ waitlist.waitlist }}</b> on the telescope <b>{{ waitlist.telescope }}</b><br>
+        <i>currently held by {{waitlist.holder.username}} </i></p><br></div>
     {% endfor %}
 {% else %}
-	<h2> Not Waiting on Anything </h2>
-{% endif %}
+    <i><p> No waitlist items</p></i>
+{% endif %} --><br><br>
+    <i> <a href="/calendar"> Schedule a time? </a> </i>
 </center>
 {% endblock %}

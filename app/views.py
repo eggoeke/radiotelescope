@@ -1,16 +1,14 @@
 from flask import render_template, Flask, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, db
-from .models import User, Reserved, Waitlist, db
+from .models import User, ReservedAstarte, ReservedAshtarut, Waitlist, db
 from .forms import RegisterForm, LoginForm
 
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'nickname': 'Miguel'}  # fake user
     return render_template('index.html',
-                           title='Home',
-                           user=user)
+                           title='Home')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -27,8 +25,10 @@ def register():
         login_user(user)
         return redirect(url_for('index'))
     if current_user.get_id() != None:
-        if (current_user.username == 'erin'):
+        if (current_user.get_username() == 'erin'):
             return render_template('register.html', current_user=current_user, register_form=form)
+        else:
+            return render_template('permission.html')
     else:
         return render_template('permission.html')
 @app.route("/logout")
@@ -56,12 +56,16 @@ def calendar():
             return render_template('permission.html')
 @app.route('/profile')
 def profile():
-        if current_user.get_id() != None:
-            return render_template('profile.html',
-                               	    title = 'Profile',
-                               	    waitlist = waitlist,
-				    reserved = reserved,
-				    user = user)
-        else:
-            return render_template('permission.html')
+    reservedAshtarut = ReservedAshtarut.query.all();
+    reservedAstarte = ReservedAstarte.query.all();
+    waitlist = Waitlist.query.all();
+
+    if current_user.get_id() != None:
+        return render_template('profile.html',
+                              	title = 'Profile',
+                               	waitlist = waitlist,
+				reservedAshtarut = reservedAshtarut,
+                                reservedAstarte = reservedAstarte)
+    else:
+        return render_template('permission.html')
 

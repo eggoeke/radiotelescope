@@ -6,7 +6,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password = db.Column(db.String)
-    reserved = db.relationship('Reserved', backref='holder', lazy='dynamic')
+    reservedAshtarut = db.relationship('ReservedAshtarut', backref='holder', lazy='dynamic')
+    reservedAstarte = db.relationship('ReservedAstarte', backref='holder', lazy='dynamic')
     waitlist = db.relationship('Waitlist', backref='holder', lazy='dynamic')
 
     def __init__(self, username, password):
@@ -31,19 +32,55 @@ class User(db.Model):
         except AttributeError:
             raise NotImplementedError('No `id` attribute - override `get_id`')
 
+    def get_username(self):
+        try:
+            return str(self.username)
+        except AttributeError:
+            raise NotImplementedError('No `username` attribute - override `get_username`')
+
 
 @login_manager.user_loader
 def load_user(userid):
     return User.query.get(userid)
 
-class Reserved(db.Model):
+class ReservedAshtarut(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    telescope = db.Column(db.String(140))
-    time = db.Column(db.DateTime)
+    time = db.Column(db.DateTime, index=True, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Reserved %r>' % (self.body)
+        return '<Reserved %r>' % (self.time)
+
+    def get_time(self):
+        try:
+            return str(self.time)
+       	except AttributeError:
+            raise NotImplementedError('No `id` attribute - override `get_id`')
+
+    def __init__(self, time, user_id):
+        self.user_id = current_user.id
+        self.time = time
+
+
+class ReservedAstarte(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    time = db.Column(db.DateTime, index=True, unique=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Reserved %r>' % (self.time)
+
+    def get_time(self):
+        try:
+            return str(self.time)
+        except AttributeError:
+            raise NotImplementedError('No `id` attribute - override `get_id`')
+
+    def __init__(self, time, user_id):
+        self.user_id = current_user.id
+        self.time = time
+
+
 
 class Waitlist(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -52,4 +89,4 @@ class Waitlist(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Waitlist %r>' % (self.body)
+        return '<Waitlist %r>' % (self.time)
