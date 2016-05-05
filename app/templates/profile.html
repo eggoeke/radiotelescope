@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 <center>
-	<h1>Hi, {{ user.nickname }}!</h1>
-
+	<h1>Hi, {{ current_user.get_id() }}!</h1>
+       
+      <h2> Current Reserved Times </h2>
 {% if reserved %}
-	 <h2> Current Reserved Times </h2>
     {% for reserved in reserved %}
 	<div> <p><b> {{ reserved.time }}</b> on the telescope <b> {{ reserved.telescope }} </b></p><br>
     {% endfor %}
 {% else %}
-	<h2> No Current Reserved Times </h2>
+	<i> No Current Reserved Times </i>
 {% endif %}
 <i> <a href="/calendar"> Schedule a time? </a> </i>
 

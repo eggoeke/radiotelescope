@@ -17,7 +17,7 @@
 {% if current_user.get_id() != None  %}
 	<h3 align="right"> Welcome, {{ current_user.username }} |<a href="/logout"> logout</a> </h3>
 {% else %}
-	<a href="/login"><h3 align="right"> login</h3> </a>
+	<h3 align="right"><a href="/login"> login</a></h3>
 {% endif %}
 	</div>
     <hr><br><br>

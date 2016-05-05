@@ -1,7 +1,7 @@
 from flask import render_template, Flask, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, db
-from .models import User
+from .models import User, Reserved, Waitlist, db
 from .forms import RegisterForm, LoginForm
 
 @app.route('/')
@@ -26,9 +26,11 @@ def register():
 
         login_user(user)
         return redirect(url_for('index'))
-
-    return render_template('register.html', current_user=current_user, register_form=form)
-
+    if current_user.get_id() != None:
+        if (current_user.username == 'erin'):
+            return render_template('register.html', current_user=current_user, register_form=form)
+    else:
+        return render_template('permission.html')
 @app.route("/logout")
 @login_required
 def logout():
@@ -46,39 +48,20 @@ def login():
 @app.route('/calendar')
 def calendar():
 	date = {'date': 'Today'}
-	return render_template('calendar.html',
-				title = 'Calendar',
-				date = date)
+        if current_user.get_id() != None:
+            return render_template('calendar.html',
+	    			    title = 'Calendar',
+				    date = date)
+        else:
+            return render_template('permission.html')
 @app.route('/profile')
 def profile():
-	user = {'nickname': 'Miguel'}
-	reserved = [  # fake array of posts
-	{ 
-            'telescope': 'Ashtarut', 
-            'time': '10pm 8th of May' 
-	},
-	{ 
-            'telescope': 'Astarte', 
-            'time': '8pm 6th of May' 
-	}
-	]
-	waitlist = [
-	{
-		'waitlist': 'Soon',
-		'holder': {'nickname': 'Mary'},
-		'priority': '1',
-		'telescope': 'Ashtarut'
-	},
-	{
-                'waitlist': 'less soon',
-                'holder': {'nickname': 'Carter'},
-                'priority': '1',
-		'telescope': 'Astarte'
-	}
-]
-        return render_template('profile.html',
-                               	title = 'Profile',
-                               	waitlist = waitlist,
-				reserved = reserved,
-				user = user)
+        if current_user.get_id() != None:
+            return render_template('profile.html',
+                               	    title = 'Profile',
+                               	    waitlist = waitlist,
+				    reserved = reserved,
+				    user = user)
+        else:
+            return render_template('permission.html')
 
