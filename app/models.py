@@ -45,7 +45,8 @@ def load_user(userid):
 
 class ReservedAshtarut(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    time = db.Column(db.DateTime, index=True, unique=True)
+    starttime = db.Column(db.DateTime, index=True, unique=True)
+    endtime = db.Column(db.DateTime, index=True, unique=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
@@ -57,14 +58,17 @@ class ReservedAshtarut(db.Model):
        	except AttributeError:
             raise NotImplementedError('No `id` attribute - override `get_id`')
 
-    def __init__(self, time, user_id):
+    def __init__(self, starttime, endtime, user_id):
         self.user_id = current_user.id
-        self.time = time
+        self.endtime = endtime
+        self.starttime = starttime
 
 
 class ReservedAstarte(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    time = db.Column(db.DateTime, index=True, unique=True)
+    starttime = db.Column(db.DateTime, index=True, unique=True)
+    endtime = db.Column(db.DateTime, index=True, unique=True)
+
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
@@ -76,9 +80,10 @@ class ReservedAstarte(db.Model):
         except AttributeError:
             raise NotImplementedError('No `id` attribute - override `get_id`')
 
-    def __init__(self, time, user_id):
+    def __init__(self, starttime, endtime, user_id):
         self.user_id = current_user.id
-        self.time = time
+        self.starttime = starttime
+        self.endtime = endtime
 
 
 
