@@ -58,11 +58,6 @@ class ReservedAshtarut(db.Model):
        	except AttributeError:
             raise NotImplementedError('No `id` attribute - override `get_id`')
 
-    def __init__(self, starttime, endtime, user_id):
-        self.user_id = current_user.id
-        self.endtime = endtime
-        self.starttime = starttime
-
 
 class ReservedAstarte(db.Model):
     id = db.Column(db.Integer, primary_key = True)
