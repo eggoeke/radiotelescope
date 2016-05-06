@@ -45,15 +45,19 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', current_user=current_user, login_form=form)
 
-@app.route('/calendar')
-def calendar():
-	date = {'date': 'Today'}
-        if current_user.get_id() != None:
-            return render_template('calendar.html',
-	    			    title = 'Calendar',
-				    date = date)
-        else:
-            return render_template('permission.html')
+@app.route('/schedule', methods=['GET', 'POST'])
+def schedule():
+    reservedAshtarut = ReservedAshtarut.query.all();
+    reservedAstarte = ReservedAstarte.query.all();
+    users = User.query.all();
+    if current_user.get_id() != None:
+        return render_template('calendar.html',
+	    			title = 'Schedule',
+                                users = users,
+                                reservedAstarte = reservedAstarte,
+                                reservedAshtarut = reservedAshtarut)
+    else:
+        return render_template('permission.html')
 @app.route('/profile')
 def profile():
     reservedAshtarut = ReservedAshtarut.query.all();

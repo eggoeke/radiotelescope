@@ -13,7 +13,7 @@
 	<img src="/static/logo.png" style= "width: 120px; height 120px" align="left">
 	<h2> Guilford College Radio Telescope
 	<br>
-	<a href="/index">Home</a>  |  <a href="/calendar">Schedule Time</a>  |  <a href = "/profile"> Profile</a></h2>
+	<a href="/index">Home</a>  |  <a href="/schedule">Schedule Time</a>  |  <a href = "/profile"> Profile</a></h2>
 {% if current_user.get_id() != None  %}
 	<h3 align="right"> Welcome, {{ current_user.username }} |<a href="/logout"> logout</a> </h3>
 {% else %}

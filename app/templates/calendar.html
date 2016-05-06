@@ -1,7 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Hi!</h1>
-    {% for post in posts %}
-    <div><p>{{ date.date }}</p></div>
+ <center>
+    <form action="/schedule" method="POST">
+       <font color = #FFFFFF> Telescope: </font>
+       <select name="telescope">
+       <option value="ashtarut" selected="selected">Ashtarut</option>
+       <option value="astarte">Astarte</option>
+       </select>
+   <font color = #FFFFFF> Start Time: </font> 
+    <input type="time", value="00:00:00", name="starttime">
+   <font color = #FFFFFF> End Time: </font>
+    <input type="time", value="00:00:00", name="endtime">
+    <button type="submit">Schedule Time</button>
+    </form><br>
+    <h2> All reserved times for May 2016</h2>
+<table>
+   <tr>
+      <td>
+	<h3>Ashtarut</h3>	
+      </td>
+{% if reservedAshtarut %}
+    {% for r in reservedAshtarut %}
+    <tr></tr>
     {% endfor %}
+{% else %}
+   <tr><i>Ashtarut is entirely free!</i></tr>
+{% endif %}
+      <td>
+        <h3>Astarte</h3>
+      </td>
+   </tr>
+</table>
+</center>
 {% endblock %}
