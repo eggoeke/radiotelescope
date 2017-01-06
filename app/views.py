@@ -1,5 +1,5 @@
 from flask import render_template, Flask, flash, redirect, session, url_for, request, g
-from flask.ext.login import login_user, logout_user, current_user, login_required
+from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
 from .models import User, ReservedAstarte, ReservedAshtarut, Waitlist, db
 from .forms import RegisterForm, LoginForm
@@ -25,7 +25,7 @@ def register():
         login_user(user)
         return redirect(url_for('index'))
     if current_user.get_id() != None:
-        if (current_user.get_username() == 'erin'):
+        if (current_user.get_username() == 'don'):
             return render_template('register.html', current_user=current_user, register_form=form)
         else:
             return render_template('permission.html')

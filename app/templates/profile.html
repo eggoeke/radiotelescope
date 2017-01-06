@@ -5,16 +5,19 @@
      <h1>My Current Reserved Times</h1>
 {% if reservedAshtarut or reservedAstarte %}
     {% if reservedAshtarut %}
-        <h2>Reserved on Ashtarut</h2>
-        {% for r in reservedAshtarut.query.filter_by(user_id = current_user.get_id()) %}
-	    <p> {{ r.starttime.strftime("%B %Y: %A %d, at %I:00 %p") }} to {{ r.endtime.strftime("%I:00 %p") }}</p>
-        {% endfor %}
+     <h2>Reserved on Ashtarut</h2>
+    {% for r in reservedAstarte %}
+        {% if r.user_id == current_user.get_id %}
+           <p> {{ r.time.strftime("%B %Y: %A %d, at %I:00 %p") }} to {{ r.endtime.strftime("%I:00 %p") }}</p>
+        {% endif %}
+    {% endfor %}
+
     {% endif %}
     {% if reservedAstarte %}
      <h2>Reserved on Astarte</h2>
     {% for r in reservedAstarte %}
-        {% if r.user_id == current_user.id %}
-           <p> {{ r.time.strftime("%B %Y: %A %d, at %I:00 %p") }} to o {{ r.endtime.strftime("%I:00 %p") }}</p>
+        {% if r.user_id == current_user.get_id %}
+           <p> {{ r.time.strftime("%B %Y: %A %d, at %I:00 %p") }} to {{ r.endtime.strftime("%I:00 %p") }}</p>
         {% endif %}
     {% endfor %}
     {% endif %}

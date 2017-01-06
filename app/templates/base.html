@@ -14,7 +14,9 @@
 	<h2> Guilford College Radio Telescope
 	<br>
 	<a href="/index">Home</a>  |  <a href="/schedule">Schedule Time</a>  |  <a href = "/profile"> Profile</a></h2>
-{% if current_user.get_id() != None  %}
+{% if current_user.get_username() == 'don' %}
+    	<h3 align="right"> Welcome, {{ current_user.username }} |<a href="/logout"> logout</a><br><a href="/register">register a new user?</a></h3>
+{% elif current_user.get_id() != None %}
 	<h3 align="right"> Welcome, {{ current_user.username }} |<a href="/logout"> logout</a> </h3>
 {% else %}
 	<h3 align="right"><a href="/login"> login</a></h3>

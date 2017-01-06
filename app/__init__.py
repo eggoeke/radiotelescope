@@ -1,6 +1,6 @@
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager, login_required, login_user, current_user, logout_user
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, login_required, login_user, current_user, logout_user
 
 
 login_manager = LoginManager()
