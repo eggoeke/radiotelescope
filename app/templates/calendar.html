@@ -13,7 +13,12 @@
     <input type="time", value="00:00:00", name="endtime">
     <button type="submit">Schedule Time</button>
     </form><br>
-    <h2> All reserved times for May 2016</h2>
-     <div id="renderCalendar"></div>
+    <h2> Ashtarut | Astarte | Spectrometer</h2><p>
+    <script>
+    w3IncludeHTML();
+    </script>
+    <div w3-include-html="~/code/radio/app/templates/renderCal.html"> </div>
+
+  </p>
 </center>
 {% endblock %}
