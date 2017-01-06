@@ -14,11 +14,9 @@
     <button type="submit">Schedule Time</button>
     </form><br>
     <h2> Ashtarut | Astarte | Spectrometer</h2><p>
-    <script>
-    w3IncludeHTML();
-    </script>
-    <div w3-include-html="~/code/radio/app/templates/renderCal.html"> </div>
-
+    <link rel="import" href="renderCal.html">
+    {% block calendar %}
+    {% endblock %}
   </p>
 </center>
 {% endblock %}

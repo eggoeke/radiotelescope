@@ -51,7 +51,7 @@ def schedule():
     reservedAstarte = ReservedAstarte.query.all();
     users = User.query.all();
     if current_user.get_id() != None:
-        return render_template('calendar.html',
+        return render_template('renderCal.html',
 	    			title = 'Schedule',
                                 users = users,
                                 reservedAstarte = reservedAstarte,
@@ -72,4 +72,3 @@ def profile():
                                 reservedAstarte = reservedAstarte)
     else:
         return render_template('permission.html')
-
