@@ -13,4 +13,11 @@ db = SQLAlchemy(app)
 login_manager.init_app(app)
 
 
+def rendercalendar():
+    import calendar 
+    c = calendar.HTMLCalendar(calendar.SUNDAY) 
+    return c.formatmonth(2017, 1)
+
 from app import views, models
+
+app.jinja_env.globals.update(rendercalendar=rendercalendar)

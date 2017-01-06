@@ -43,6 +43,7 @@ class User(db.Model):
 def load_user(userid):
     return User.query.get(userid)
 
+
 class ReservedAshtarut(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     starttime = db.Column(db.DateTime, index=True, unique=True)

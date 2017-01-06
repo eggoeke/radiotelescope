@@ -1,5 +1,11 @@
 <html>
   <head>
+    <script src = "jquery.js"></script>
+    <script>
+      $(function(){
+        $("#renderCalendar").load("calhtml.html");
+      });
+    </script>
     {% if title %}
     <title>{{ title }} - GC Radio Telescope</title>
     {% else %}

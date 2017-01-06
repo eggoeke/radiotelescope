@@ -14,22 +14,6 @@
     <button type="submit">Schedule Time</button>
     </form><br>
     <h2> All reserved times for May 2016</h2>
-<table>
-   <tr>
-      <td>
-	<h3>Ashtarut</h3>	
-      </td>
-{% if reservedAshtarut %}
-    {% for r in reservedAshtarut %}
-    <tr></tr>
-    {% endfor %}
-{% else %}
-   <tr><i>Ashtarut is entirely free!</i></tr>
-{% endif %}
-      <td>
-        <h3>Astarte</h3>
-      </td>
-   </tr>
-</table>
+     <div id="renderCalendar"></div>
 </center>
 {% endblock %}
