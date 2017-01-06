@@ -1,5 +1,6 @@
 import calendar
 
-    c = calendar.HTMLCalendar(calendar.SUNDAY) 
-    return c.formatmonth(2017, 1)
-
+def renderCal(month, year, equip)
+    calendar.setfirstweekday(calendar.SUNDAY)
+    calendar.monthcalendar(year, month)
+    return
