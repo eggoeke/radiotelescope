@@ -10,7 +10,15 @@ def renderCal(month, year, equip):
 	'<tr><th class="sun">Sun</th><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th>'
 	'<th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th></tr>'
 	)
-
+	for ma in mat:
+		str1 = str1 + '<tr>'
+		for m in ma:
+			if m != 0:
+				str1 = str1 + '<td>'+str(m)+'</td>'
+			else:
+				str1 = str1+ '<td></td>'
+		str1 = str1 + '</tr>'
+	str1 = str1 + '</table>'
 	render.write(str1)
 	render.close()
 
