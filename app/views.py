@@ -6,17 +6,15 @@ from .forms import RegisterForm, LoginForm
 import time
 import renderCalendar
 
-global month
-global year
 
 @app.route('/')
 @app.route('/index')
 def index():
     global month
     global year
-    month = time.strftime('%m')
+    month = time.strftime('%-m')
     year = time.strftime('%Y')
-    renderCalendar.renderCal(int(month), int(year), "astarte")
+    renderCalendar.renderCal(int(month), int(year), "ashtarut")
     return render_template('index.html',
                            title='Home')
 
@@ -25,7 +23,7 @@ def up():
     global month
     global year
     month = int(month) + int(1)
-    renderCalendar.renderCal(int(month), int(year), "astarte")
+    renderCalendar.renderCal(int(month), int(year), "ashtarut")
     return redirect(url_for('schedule'))
 
 @app.route('/down')
@@ -33,7 +31,7 @@ def down():
     global month
     global year
     month = int(month) - 1;
-    renderCalendar.renderCal(month, int(year), "astarte")
+    renderCalendar.renderCal(month, int(year), "ashtarut")
     return redirect(url_for('schedule'))
 
 @app.route('/register', methods=['GET', 'POST'])

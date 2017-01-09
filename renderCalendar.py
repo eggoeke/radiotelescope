@@ -10,15 +10,20 @@ def renderCal(m, y, equip):
 	calendar.setfirstweekday(calendar.SUNDAY)
 	temp = 0
 	tempmonth = 1;
-	if(month > 12):
-		global month
-		temp = int(month/12)
-		month = month - 12*temp
-	elif(month < 1):
+	if(month < 1):
 		global month
 		tempmonth = month - 12
 		temp = int(tempmonth/12)
 		month = month - 12*temp
+	elif(month%12 == 0):
+		global month
+		temp = int((month-1)/12)
+		month = month - 12*temp
+	elif(month > 12):
+		global month
+		temp = int(month/12)
+		month = month - 12*temp
+
 
 	year = year + temp
 	mat = calendar.monthcalendar(year, month)
@@ -32,7 +37,7 @@ def renderCal(m, y, equip):
 		str1 = str1 + '<tr>'
 		for m in ma:
 			if m != 0:
-				str1 = str1 + '<td>'+str(m)+'</td>'
+				str1 = str1 + '<td><div align="left">'+str(m)+'<br> time<br>time<br></div></td>'
 			else:
 				str1 = str1+ '<td></td>'
 		str1 = str1 + '</tr>'
