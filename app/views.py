@@ -12,9 +12,11 @@ import renderCalendar
 def index():
     global month
     global year
+    global string
     month = time.strftime('%-m')
     year = time.strftime('%Y')
-    renderCalendar.renderCal(int(month), int(year), "ashtarut")
+    string = "ashtarut"
+    renderCalendar.renderCal(int(month), int(year), string)
     return render_template('index.html',
                            title='Home')
 
@@ -22,16 +24,45 @@ def index():
 def up():
     global month
     global year
+    global string
     month = int(month) + int(1)
-    renderCalendar.renderCal(int(month), int(year), "ashtarut")
+    renderCalendar.renderCal(int(month), int(year), string)
     return redirect(url_for('schedule'))
 
 @app.route('/down')
 def down():
     global month
     global year
+    global string
     month = int(month) - 1;
-    renderCalendar.renderCal(month, int(year), "ashtarut")
+    renderCalendar.renderCal(month, int(year), string)
+    return redirect(url_for('schedule'))
+
+@app.route('/astarte')
+def astarte():
+    global month
+    global year
+    global string
+    string = "astarte"
+    renderCalendar.renderCal(int(month), int(year), string)
+    return redirect(url_for('schedule'))
+
+@app.route('/ashtarut')
+def ashtarut():
+    global month
+    global year
+    global string
+    string = "ashtarut"
+    renderCalendar.renderCal(int(month), int(year), string)
+    return redirect(url_for('schedule'))
+
+@app.route('/spectrometer')
+def spectrometer():
+    global month
+    global year
+    global string
+    string = "spectrometer"
+    renderCalendar.renderCal(int(month), int(year), string)
     return redirect(url_for('schedule'))
 
 @app.route('/register', methods=['GET', 'POST'])
