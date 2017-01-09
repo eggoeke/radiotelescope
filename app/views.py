@@ -3,13 +3,38 @@ from flask_login import login_user, logout_user, current_user, login_required
 from app import app, db
 from .models import User, ReservedAstarte, ReservedAshtarut, Waitlist, db
 from .forms import RegisterForm, LoginForm
+import time
+import renderCalendar
+
+global month
+global year
 
 @app.route('/')
 @app.route('/index')
 def index():
+    global month
+    global year
+    month = time.strftime('%m')
+    year = time.strftime('%Y')
+    renderCalendar.renderCal(int(month), int(year), "astarte")
     return render_template('index.html',
                            title='Home')
 
+@app.route('/up')
+def up():
+    global month
+    global year
+    month = int(month) + int(1)
+    renderCalendar.renderCal(int(month), int(year), "astarte")
+    return redirect(url_for('schedule'))
+
+@app.route('/down')
+def down():
+    global month
+    global year
+    month = int(month) - 1;
+    renderCalendar.renderCal(month, int(year), "astarte")
+    return redirect(url_for('schedule'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -31,6 +56,7 @@ def register():
             return render_template('permission.html')
     else:
         return render_template('permission.html')
+
 @app.route("/logout")
 @login_required
 def logout():
