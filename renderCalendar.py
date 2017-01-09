@@ -28,7 +28,17 @@ def renderCal(m, y, equip):
 	year = year + temp
 	mat = calendar.monthcalendar(year, month)
 	render = open("app/templates/renderCal.html", 'w')
-	str1 = ('{% extends "calendar.html" %}{% block calendar %}<table border="1" cellpadding="0" cellspacing="0" class="month">'
+	str1 = ('{% extends "calendar.html" %}{% block calendar %}')
+	if(equip == "ashtarut"):
+		str1 = str1+'    <h2> Ashtarut |<a href="/astarte"> Astarte</a> | <a href="/spectrometer">Spectrometer</a></h2><p><br>'
+	elif(equip == "astarte"):
+		str1 = str1+'    <h2><a href="/ashtarut">Ashtarut</a> | Astarte | <a href="/spectrometer">Spectrometer</a></h2><p><br>'
+	elif(equip == "spectrometer"):
+		str1 = str1+'    <h2><a href="/ashtarut">Ashtarut</a> | <a href="/astarte">Astarte</a> | Spectrometer</h2><p><br>'
+
+
+	str1 = str1 + ('      <h1><b><a href="/down"><</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/up">></a></h1 ></b><br>'
+	'<table border="1" cellpadding="0" cellspacing="0" class="month">'
 	'<tr><th colspan="7" class="month">' + calendar.month_name[month] +' '+ str(year) + '</th></tr>'
 	'<tr><th class="sun">Sun</th><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th>'
 	'<th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th></tr>'
