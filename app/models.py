@@ -46,8 +46,8 @@ def load_user(userid):
 
 class ReservedAshtarut(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    starttime = db.Column(db.DateTime, index=True, unique=True)
-    endtime = db.Column(db.DateTime, index=True, unique=True)
+    starttime = db.Column(db.DateTime, index=True)
+    endtime = db.Column(db.DateTime, index=True,)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
@@ -62,8 +62,8 @@ class ReservedAshtarut(db.Model):
 
 class ReservedAstarte(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    starttime = db.Column(db.DateTime, index=True, unique=True)
-    endtime = db.Column(db.DateTime, index=True, unique=True)
+    starttime = db.Column(db.DateTime, index=True)
+    endtime = db.Column(db.DateTime, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):

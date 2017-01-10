@@ -100,11 +100,12 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', current_user=current_user, login_form=form)
 
-@app.route('/schedule', methods=['GET', 'POST'])
-def schedule():
+@app.route('/schedule/<month>/<year>/<equip>', methods=['GET', 'POST'])
+def schedule(month,year,equip):
     reservedAshtarut = ReservedAshtarut.query.all();
     reservedAstarte = ReservedAstarte.query.all();
     users = User.query.all();
+    renderCalendar.renderCal(int(month), int(year), equip)
     if current_user.get_id() != None:
         return render_template('renderCal.html',
 	    			title = 'Schedule',
