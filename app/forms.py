@@ -54,3 +54,29 @@ class LoginForm(Form):
         self.user = user
         return True
 
+class ReserveTime(Form):
+    username = StringField('Username', validators=[DataRequired()])
+    equip = EquipField('Equipment', validators=[DataRequired()])
+    starttime = StartField('Equipment', validators=[DataRequired()])
+    endtime = EndField('Equipment', validators=[DataRequired()])
+
+
+    def __init__(self, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+        self.user = None
+
+    def validate(self):
+        rv = Form.validate(self)
+        if not rv:
+            return False
+
+        user = db.session.query(User).filter_by(
+            username=self.username.data,
+            password=sha1(self.password.data.encode('utf-8')).hexdigest()).first()
+
+        if user is None:
+            self.username.errors.append('Unknown user')
+            return False
+
+        self.user = user
+        return True
